@@ -1,0 +1,120 @@
+  V7: Servo centres to 90º auto, left input turns servo 90º
+  
+  / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / 
+  / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / 
+  
+  // Reactionary Doll: Dushan, Project 1
+  // 2 head motion sensors (ears)
+  // 2 hand pressure sensors (arms/hands)
+  // 2 LEDs (eyes)
+  
+  
+  ///Started with basic servo control from an analog sensor Nick's code
+  // Importing code from 2 input, 1 Output project (CatMilkFlicker code)
+  
+ 
+ //////////////////////////////////////////////////////////////////////
+  
+  
+  
+  #include <Servo.h> 
+  
+  Servo servo1;  //create the servo object
+  
+  /// Give pin IN & OUTS
+  
+  int inputPin1 = 0; //LEFT SENSOR =0
+  int inputPin2= 1;  // RIGHT SENSOR =1
+  
+  int outputPin1 = 3;   // EYE LIGHTS
+  int outputPin2 = 4;  //  BUZZER FROM HAND!
+  
+  int sensor1;
+  int sensor2;
+  
+  int bright;
+  
+  ///
+  
+  
+  int sensor1inputPin = 0; // analog pin LEFT EAR sensor is attached to
+  int sensor2inputPin = 1; // analog pin RIGHT EAR sensor is attached to
+  
+  int servoOutputPin = 10; //the pin controlling servo - STAYS THE SAME!
+  
+  int sensor1RawValue; //variable that will hold the raw value from the sensor1 (LEFT EAR)
+  int sensor1ConvValue; // variable that will hold the converted output value  (LEFT EAR)
+  
+  int sensor2RawValue; //variable that will hold the raw value from the sensor2 (RIGHT EAR)
+  int sensor2ConvValue; // variable that will hold the converted output value (RIGHT EAR)
+  
+ 
+  ///////////////////////////////////
+  
+  
+  void setup(){
+    
+    //servo1.attach(servoOutputPin,500,2500);  // servo attached to what pin, minPulse,maxPulse
+    
+    servo1.attach(10);  // attaches the servo on pin 10 to the servo object
+     servo1.write(90);   // Turn Servo to center position (90 degrees)????
+    /////   
+    
+     Serial.begin(9600);
+     pinMode(outputPin1, OUTPUT);
+     pinMode(outputPin2, OUTPUT);
+  }
+  
+  ///////////////////////////////////
+  
+  
+  void loop(){
+    
+    //servo1.write(90);  //  Servo  to centre ! (90º)
+    
+    sensor1RawValue=analogRead(sensor1inputPin); //read sensor1
+    sensor1ConvValue=map(sensor1RawValue,0,1023,0,89); // convert from 0 - 1023 to 0-80º
+    
+    sensor2RawValue=analogRead(sensor2inputPin); //read sensor2
+    sensor2ConvValue=map(sensor2RawValue,0,1023,91,179); // convert from 0 - 1023 to 100-180º
+  
+    
+    
+  sensor1 = analogRead(inputPin1); ///read the value from analog pin VALUE BETWEEN 0 - 1023  
+  sensor2 = analogRead(inputPin2);
+  
+  if (sensor1>=100)  
+  
+   {
+      servo1.write(90);
+      ///delay(15);
+      //bright = map(sensor1,0,1023,0,255); // 
+      //bright = map(sensor2,0,1023,0,255); // 
+  
+   }
+  else
+   {
+      servo1.write(0);
+     //bright = 0;
+   }
+   
+   
+   
+   
+   
+   
+    
+    ////// PRINT INFO TO SERIAL! ////////// 
+    
+    Serial.println(sensor1ConvValue);  //printLine sense1 out to serial monitor
+    Serial.println(sensor2ConvValue);  //printLine sense2 out to serial monitor
+    servo1.write(sensor1ConvValue);
+  
+    }
+  
+  
+  
+  
+  
+  
+  
