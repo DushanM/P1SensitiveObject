@@ -1,14 +1,13 @@
-    //// V15: Servo centres to 90º auto, left input turns servo 90º
-    ///// LIGHTS TURN ON FOR EYES! (ADD FADE?)
+    //// V15: Servo centres to 90º auto, left input turns servo 90º, right input turns head to the right 90º
+    ///// Lights turn on in eyes.
     
     // Reactionary Doll: Dushan, Project 1
-    // 2 head motion sensors (ears)
     // 2 hand pressure sensors (arms/hands)
     // 2 LEDs (eyes)
     
     
     ///Started with basic servo control from an analog sensor Nick's code
-    // Importing code from 2 input, 1 Output project (CatMilkFlicker code)
+    // Importing code from 2 input, 1 Output project (CatMilkFlicker code) from 1st week.
     
    
    //////////////////////////////////////////////////////////////////////
@@ -33,8 +32,8 @@
     ///
     
     
-    int sensor1inputPin = 0; // analog pin LEFT EAR sensor is attached to
-    int sensor2inputPin = 1; // analog pin RIGHT EAR sensor is attached to
+    int sensor1inputPin = 0; // analog pin LEFT HAND sensor is attached to
+    int sensor2inputPin = 1; // analog pin RIGHT HAND sensor is attached to
     
     int servoOutputPin = 10; //the pin controlling servo - STAYS THE SAME!
 
@@ -60,9 +59,7 @@ int sensor2ConvValue; // variable that will hold the converted output value (RIG
        pinMode(led1, OUTPUT);
        pinMode(led2, OUTPUT);
              
-             
-   // servo1.write(90);   // Turn Servo to center position (90 degrees)
-
+            
     }
     
     ///////////////////////////////////
@@ -74,14 +71,14 @@ int sensor2ConvValue; // variable that will hold the converted output value (RIG
     sensor2 = analogRead(inputPin2);    
 
         
-      servo1.write(90);   // Turn Servo to center position (90 degrees)????
+      servo1.write(90);   // Turn Servo to center position (90 degrees)
     
     
     if (sensor1>=500){
           digitalWrite(led1,HIGH);   // turn the LED on +++ LIGHTS WORK
           digitalWrite(led2,HIGH);   // turn the LED on 
         servo1.write(0);             //turn head LEFT
-          delay(100); 
+          delay(100);               // MUST have delay or doesn't work… Arduino faster than code!?
 
   
      }
